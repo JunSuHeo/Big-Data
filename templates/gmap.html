@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Simple Map</title>
+    <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="{{url_for('static', filename='js/map.js')}}"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY&callback=initMap">
+    </script>
+    <style type="text/css">
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        width: 600px;
+        height: 600px;
+        flex : 3;
+      }
+      #right-div{
+        flex : 2;
+      }
+      #blank{
+        flex : 1;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      #fflex{
+        display: flex;
+        flex-wrap: nowrap;
+        justify-content : center;
+        align-items: center;
+
+      }
+      #bodycontent{
+        margin-top: 5%;
+        margin-left: 5%;
+        margin-right: 5%;
+      }
+
+      select {
+        width: 200px; /* 원하는 너비설정 */
+        padding: .8em .5em; /* 여백으로 높이 설정 */
+        font-family: inherit;  /* 폰트 상속 */
+        border: 1px solid #999;
+        border-radius: 0px; /* iOS 둥근모서리 제거 */
+        -webkit-appearance: none; /* 네이티브 외형 감추기 */
+        -moz-appearance: none;
+        appearance: none;
+      }
+
+      input {
+        width: 200px; /* 원하는 너비설정 */
+        padding: .8em .5em; /* 여백으로 높이 설정 */
+        font-family: inherit;  /* 폰트 상속 */
+        border: 1px solid #999;
+        border-radius: 0px; /* iOS 둥근모서리 제거 */
+        -webkit-appearance: none; /* 네이티브 외형 감추기 */
+        -moz-appearance: none;
+        appearance: none;
+      }
+      button {
+        border: 1px solid #999;
+        font-family: inherit;  /* 폰트 상속 */
+        width: 180px; /* 원하는 너비설정 */
+        padding: .4em .2em; /* 여백으로 높이 설정 */
+        border-radius: 0px; /* iOS 둥근모서리 제거 */
+        -webkit-appearance: none; /* 네이티브 외형 감추기 */
+        text-align: center;
+        background-color:rgb(70, 128, 255);
+        color : white;
+        font-size: 20px;
+        font-weight : bold ;
+      }
+      .center{
+        text-align: center;
+      }
+      header{
+        position: fixed;
+        z-index: 4;
+        left : 0;
+        top : 0;
+        width : 100%;
+        height : 80px;
+        background-color:rgb(70, 128, 255);
+        color : white;
+      }
+      footer{
+        position: fixed;
+        left : 0;
+        bottom : 0;
+        width : 100%;
+        height : 50px;
+        background-color:rgb(70, 128, 255);
+        color : white;
+        text-align: right;;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+      }
+      #logo{
+        padding-right: 30px;
+      }
+    </style>
+  </head>
+
+
+  <body style="overflow: hidden;">
+    <header>
+      <!-- Page title -->
+      <h1 class="center">빅데이터 기반 서울시 상권 분석 서비스</h1>      
+    </header>
+    <div id="bodycontent">
+      <br><br>
+      <div id="fflex">
+        <!-- Display google map -->
+        <div id="map"></div><br />
+        <div id="blank"></div>
+        <!-- Display all informations -->
+        <div id="right-div">
+        <br />
+        <h3 class="center">창업 위치와 업종 코드를 선택</h3>
+        <br />
+        <form>
+          위도 : <input type="text" name="lat" id="lat" readonly/><br /><br>
+          경도 : <input type="text" name="log" id="log" readonly/><br /><br>
+          상권 코드 명 : <input type="text" name="code_name" id="guesses" readonly/><br /><br>
+          업종선택 : 
+          <select name="service" id="service">      
+          </select>
+        </form>
+        <br><br>
+        <button id="submit_btn" type="button" onclick="btn_click();" >Submit</button><br />
+        <br><br>
+        <h2 id="guess_price"></h2>
+      </div>
+    </div>
+    <br><br>
+    <div class="center">
+      <h4 id="guess_title"></h4>
+      <p id="guess_value"></p>
+
+    </div>
+  </div>
+    <footer>
+      <div id="logo">
+              <img src="{{url_for('static', filename='image/logo2.png')}}" style= "height: 45px;" alt="" />
+       </div>
+    </footer>
+  </body>
+</html>
